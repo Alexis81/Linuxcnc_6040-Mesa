@@ -1,0 +1,6 @@
+--- Qtvcp Screen Started on: dim., janv. 02 2022 20:06:38 ---
+dim.02 20:06 WARNING -Basic_Probe macro files not found -Probing disabled
+dim.02 20:06 Machine OFF
+dim.02 20:06 La commande (EMC_COOLANT_MIST_OFF) ne peut être exécutée tant que la machine n'est pas sortie de l'arrêt d'urgence et mise en marche
+dim.02 20:10 hm2/hm2_7i96.0: error finishing read! iter=249654
+

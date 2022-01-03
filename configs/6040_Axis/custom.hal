@@ -1,0 +1,36 @@
+# Inclure vos commandes HAL personnalisées ici
+# Ce fichier ne sera pas écrasé si vous relancez Stepconf
+
+## Load the Huanyang VFD user component
+# https://github.com/babs/cnc-linuxcnc-nowforever_vfd
+#
+loadusr -Wn vfd python /home/alexis/linuxcnc/configs/6040_Axis/nowforever_vfd.py
+#loadusr -Wn spindle-vfd hy_vfd -n spindle-vfd -t 1 -d /dev/ttyUSB0 -p none -r 38400 -s 1
+
+# Affecte 1 à la commande
+setp vfd.spdvfd.run 1
+
+# Direction de la broche
+net spindle-fwd spindle.0.forward => vfd.spdvfd.forward
+
+# Démarre la broche et la pompe à eau (pin-16-out)
+net spindle-on spindle.0.on => vfd.spdvfd.run => halui.mist.on
+
+# Démarre la broche et la pompe à eau (pin-16-out)
+net spindle-brake spindle.0.brake =>  halui.mist.off
+
+# Permet d'attendre que la broche soit à la bonne vitesse
+net spindle-ready <= vfd.spdvfd.atfreq => spindle.0.at-speed
+
+
+# Vitesse de la broche
+net spindle-cmd-rpm-abs => vfd.spdvfd.rpmset
+
+# Ampérage de la broche
+net spindle-cmd-amperage => vfd.spdvfd.outcurrent
+
+#-- https://wapl.es/cnc/2015/12/04/huanyang-linuxcnc-2.7-speed-control.html
+#
+
+
+

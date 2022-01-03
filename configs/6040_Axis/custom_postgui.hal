@@ -1,0 +1,46 @@
+# Inclure vos commandes HAL personnalisées ici
+# Les commandes contenues dans ce fichier seront lancées après quel'interface graphique AXIS (PyVCP inclus) aura démarré.
+
+# **** Réglage de l'affichage de vitesse broche avec pyvcp -START ****
+# **** Utilise la vitesse de broche COMMANDÉE depuis LinuxCNC puisqu'aucun codeur de broche n'a été spécifié
+
+# *** Cmd pour G0 X0 Y0  ***************************
+net remote-o101 halui.mdi-command-00 <= pyvcp.o101
+
+# *** Cmd pour G0 X0 Y0  Z0 ************************
+net remote-o102 halui.mdi-command-01 <= pyvcp.o102
+
+# *** Cmd pour G92 X0 Y0 ***************************
+net remote-o103 halui.mdi-command-02 <= pyvcp.o103
+
+# *** Z Probe **************************************
+net remote-o105 halui.mdi-command-04 <= pyvcp.o105
+
+# *** G92 Z0 **************************************
+net remote-o106 halui.mdi-command-05 <= pyvcp.o106
+
+# *** Pin pour la led du probe *********************
+net probe-in => pyvcp.led-probe-in
+
+# *** Vitesse de déplacement *********************
+loadrt mult2
+addf mult2.0 servo-thread
+setp mult2.0.in1 60
+net vel-sec <= motion.current-vel => mult2.0.in0
+net vel-min <= mult2.0.out => pyvcp.speed_motion
+net vel-min <= mult2.0.out => pyvcp.speed_motion_texte
+
+# *** Infos de la VFD *********************
+net spindle-cmd-rpm-abs    => pyvcp.spindle-speed
+net spindle-cmd-amperage    => pyvcp.spindle-amperage
+
+# *** VFD à la bonne vitesse *********************
+net spindle-ready =>  pyvcp.speed_vfd
+
+# *** Les switchs de limite *********************
+net both-home-x => pyvcp.led-x-in
+net both-home-y => pyvcp.led-y-in
+net both-home-z => pyvcp.led-z-in
+
+
+
