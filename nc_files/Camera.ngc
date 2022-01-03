@@ -1,0 +1,15 @@
+o113 sub
+   (*** Center Camera ***)
+
+   #1001=-3.794  (Position X)
+   #1002=-79.336 (Position Y)
+  
+   (debug, Center camera)
+   G21 (Programme en mm)
+   M5  (Arret de la broche)
+   G90 G53 G0 Z0 (Mise en securite de Z)
+   G91 X#1001 Y#1002 (Mode relatif)
+   G92 X0 Y0
+   G90
+
+o113 endsub

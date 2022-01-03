@@ -1,0 +1,22 @@
+o105 sub
+   (*** Touch Off Z ***)
+  
+   G21 (Programme en mm)
+   M5  (Arret de la broche)
+   G90 G53 G0 Z0  (Mise en securite de Z)
+   G90 G53 X-6.733 Y-516.469 (Position du capteur)
+   G90 G53 Z-40 (Faire descendre Z)
+   G91
+   G38.2 Z-25 F300 (Cherche contact sur Z)
+   G0 Z0.5 (Remonte Z de 1)
+   
+   G4 P0.5 (Faire une pause)
+   G38.2 Z-2 f10 (Recherche lentement Z)
+
+   (debug, Hauteur Table : #<_z>)
+ 
+   G92 Z12.71 (Epaisseur de la gauge, décalage entre la sonde et le martir)
+   G91
+   G90 G53 G0 Z0 (Mise en securite de Z)
+   G90
+o105 endsub

@@ -1,0 +1,22 @@
+o111 sub
+   (*** Hauteur Table ***)
+
+   (debug, Calcul hauteur Table...)
+  
+   G21 (Programme en mm)
+   M5  (Arret de la broche)
+   G90 G53 G0 Z0 (Mise en securite de Z)
+   G90 G53 Z-15 (Faire descendre Z)
+   G91
+   G38.2 Z-60 F500 (Cherche contact sur Z)
+   G0 Z1 (Remonte Z de 1)
+   G4 P0.5 (Faire une pause)
+   G38.2 Z-3 f10 (Recherche lentement Z)
+   
+   #1002=[#<_z> - 1.55]
+
+   (debug, Hauteur Table : #1002)
+   G91
+   G90 G53 G0 Z0 (Mise en securite de Z)
+   G90
+o111 endsub

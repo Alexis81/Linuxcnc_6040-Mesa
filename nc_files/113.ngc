@@ -1,0 +1,75 @@
+o113 sub
+   (*** Tools diameter ***)
+
+   (Position capteur)
+   #1001=225      (Position X Left)
+   #1002=-132 (Position Y Left)
+   #1003=31       (Position Z)
+   #1004=276     (Position X Right)
+   
+
+   #1005=0  (X Left)
+   #1006=0  (X Right)
+   #1007=0
+   #1008=9.76  (diamètre testeur)
+   #1009=0
+   #1010=0
+   #1011=2000  (Vitesse de la broche)
+   #1012=100   (Vitesse approche rapide)
+   #1013=5     (Vitesse approche lente)
+   #1014=26    (Distance recherche)
+  
+   (debug, Size tools)
+   G21 (Programme en mm)
+   M5  (Arret de la broche)
+   G90 G53 G0 Z0 (Mise en securite de Z)
+
+   M3 S#1011
+   
+   (A Gauche de la sonde)
+   G90 X#1001 Y#1002 (Mode relatif)
+   G90 Z#1003 (Mode relatif)
+   G91
+   G38.2 x#1014 F#1012 (Cherche contact sur Z)
+   G0 x-1 (Deplace X de 1)
+   G4 P0.5 (Faire une pause)
+   G38.2 x3 f#1013 (Recherche lentement le capteur)
+   
+   (Sauve la valeur courante de x)
+   #1005=#<_x>
+   (debug, X left = #1005)
+   G0 x-1 (Deplace X de 1)
+
+   (A droite de la sonde)
+   G90
+   #1007=[#1003 + 10]
+   G90 Z#1007   (Remonte Z)
+   G90 X#1004 Y#1002 (Mode relatif)
+   G90 Z#1003 (Mode relatif)
+   G91
+   G38.2 x-#1014 F#1012 (Cherche contact sur Z)
+   G0 x1 (Deplace X de 1)
+   G4 P0.5 (Faire une pause)
+   G38.2 x-3 f#1013 (Recherche lentement Z)
+   
+   (Sauve la valeur courante de x)
+   #1006=#<_x>
+   (debug, X Right = #1006)
+
+   #1009=[#1006 - #1005]
+   #1010=[#1009 - #1008]
+
+   (debug, Diametre = #1010)
+
+   M5
+   G0 x1 (Deplace X de 1)
+
+   G91
+   G90 G53 G0 Z0 (Mise en securite de Z)
+   G90
+
+
+   
+   G90
+
+o113 endsub

@@ -1,0 +1,28 @@
+o112 sub
+
+   #1002=0    (valeur calcul)
+
+   (*** Epaisseur Pièce ***)
+   (AXIS,show)
+   (AXIS,notify, test : #<_z> - EXITING)
+
+   (debug, Epaisseur pièce...)
+ 
+   G21 (Programme en mm)
+   M5  (Arret de la broche)
+   G90 G53 G0 Z0 (Mise en securite de Z)
+   G90 G53 Z-15 (Faire descendre Z)
+   G91
+   G38.2 Z-60 F400 (Cherche contact sur Z)
+   G0 Z1 (Remonte Z de 1)
+   G4 P0.5 (Faire une pause)
+   
+   G38.2 Z-3 f10 (Recherche lentement Z)
+   G91
+   (Calcul hauteur piece)
+   #1002=#<_z>
+   (#<_Z> = Return current Position Z)
+   (debug, Epaisseur pièce : #1002)
+   G90 G53 G0 Z0 (Mise en securite de Z)
+G90
+o112 endsub
